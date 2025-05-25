@@ -1,0 +1,10 @@
+﻿<div><span>Selected Hero Name</span> @hero.Name Detaisl</div>
+<div><span>Selected Hero Id:</span> @hero.Id</div>
+<div>
+    <label>Name: <input @bind=@hero.Name @bind:event=oninput /></label>
+</div>
+
+@code {
+    [Parameter]
+    public Hero hero { get; set; }
+}
