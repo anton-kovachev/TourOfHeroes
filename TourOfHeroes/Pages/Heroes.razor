@@ -1,0 +1,36 @@
+﻿@page "/heroes"
+@inject IHeroesService heroService
+
+
+@if(selectHero != null)
+{
+    <HeroDetail hero=@selectedHero />
+}
+
+<div class="heroes">
+    @foreach (var hero in heroes)
+    {
+        <li @onclick=@(() => selectHero(hero)) class="@(hero == selectedHero ? "selected" : null)">
+            <span class="badge">
+                @hero.Id
+            </span>
+            @hero.Name
+        </li>
+    }
+</div>
+
+@code {
+
+    Hero selectedHero { get; set; }
+    void selectHero(Hero hero)
+    {
+        this.selectedHero = hero;
+    }
+
+    List<Hero> heroes { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.heroes = await this.heroService.GetHeroes();
+    }
+}
